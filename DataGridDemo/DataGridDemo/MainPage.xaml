@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DataGridDemo"
+             xmlns:sfgrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             x:Class="DataGridDemo.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:ViewModel x:Name="viewModel" />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:CustomStyle x:Name="customStyle" x:Key="customStyle"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical"  BackgroundColor="White" Spacing="0">
+        <Grid VerticalOptions="FillAndExpand" Margin="25,10,25,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" RowSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Label x:Name="lblSequence" Grid.Row="0" Text="Bin Allocation"  Margin="20,0,15,0"/>
+                <RelativeLayout x:Name="sequenceGridLayout" Grid.Row="1" Margin="15,0,15,0" HeightRequest="150"
+          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=lblSequence, Property=Height, Factor=1,Constant=5}">
+                    <sfgrid:SfDataGrid x:Name="sequenceOrderGrid" ColumnSizer="Auto"  GridStyle="{StaticResource customStyle}"
+              AutoGenerateColumns="True" AllowSorting="True" AllowEditing="False" RowHeight="24" SelectionMode="Single" EditTapAction="OnTap"
+              ItemsSource="{Binding OrdersInfo}"
+              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
+              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
+
+                    </sfgrid:SfDataGrid>
+
+                    <BoxView Color="Gray" HeightRequest="1.0" Opacity="100"
+                     RelativeLayout.XConstraint="{ConstraintExpression Type=Constant,Property=Width, Factor= 0.5,Constant=0}" 
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,Property=Width,Constant= 40}"                         
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"></BoxView>
+
+                </RelativeLayout>
+
+                <Label Grid.Row="2" Text="{Binding GeneralInformation}" Margin="15,0,15,5" TextColor="Red" />
+            </Grid>
+        </Grid>
+    </StackLayout>
+</ContentPage>
